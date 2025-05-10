@@ -1,0 +1,55 @@
+a{
+    text-decoration: none;
+    color: black;
+}
+
+.small-bal a:hover{
+    color: black !important;
+}
+
+body{
+    background-color: #f0eded;
+    font-size: 15px;
+    line-height: 26px;
+    font-family: Source Sans Pro, sans-serif;
+    font-weight: 400;
+}
+
+.calendar {
+    max-width: 800px;
+    margin: 50px auto;
+}
+.calendar-header {
+    text-align: center;
+}
+.day {
+    width: 14.285%;
+    text-align: center;
+    padding: 10px;
+    box-sizing: border-box;
+}
+.day-name {
+    font-weight: bold;
+}
+.day:hover {
+    background-color: #f0f0f0;
+}
+.selected-day {
+    background-color: #ff80ab;
+    color: white;
+}
+.match-day {
+    background-color: #ffeb3b;
+    color: #333;
+    font-weight: bold;
+}
+.match-icon {
+    font-size: 18px;
+    color: #ff5722;
+}
+.match-info {
+    background-color: #f0f0f0;
+    padding: 10px;
+    border-radius: 5px;
+    margin-top: 10px;
+}

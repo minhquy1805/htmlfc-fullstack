@@ -1,0 +1,137 @@
+header{
+    position: relative;
+}
+/* header 1 */
+.header-top{
+    background-color: #292c31;
+    color: #ffffff;
+}
+
+.header-top .header-top-inner .nav-account{
+    display: flex;
+    align-items: center;
+    justify-content: right;
+    gap: 30px;
+    padding: 1px;
+}
+
+.header-top .header-top-inner .nav-account a{
+    font-size: 10px;
+    font-weight: 700;
+}
+
+.header-top .header-top-inner .nav-account .dropdown-menu a{
+    color: black !important;
+}
+
+#account-link{
+    color: white !important;
+}
+
+#logout-link,#login-link{
+    cursor: pointer;
+    color: white !important;
+}
+
+/* header 2 */
+.header-secondary{
+    background-color: #eedddd;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+.header-secondary .header-secondary-inner .container{
+    display: flex;
+    justify-content: right;
+    align-items: center;
+    gap: 300px;
+    padding: 20px 20px 25px 20px;
+}
+
+.header-secondary .header-secondary-inner .header-info-bal{
+    display: flex;
+    gap: 20px;
+    align-items: center;
+}
+
+.header-secondary .header-secondary-inner .header-info-bal .small-bal{
+    cursor: pointer;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.header-secondary .header-secondary-inner .header-info-bal .small-bal svg{
+    display: flex;
+    stroke: black;
+}
+
+.btn{
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.btn-check:checked+.btn, .btn.active, .btn.show, .btn:first-child:active, :not(.btn-check)+.btn:active{
+    border-color: #eedddd;
+}
+
+.header-secondary .header-secondary-inner .header-info-block .header-info-logo img{
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 150px;
+    width: 200px;
+}
+
+/* side menu */
+.side-menu {
+    display: grid;
+    justify-content: center;
+    gap: 15px;
+    position: fixed;
+    top: 0;
+    right: -300px; /* Ẩn menu ban đầu bằng cách dịch ra ngoài */
+    width: 300px;
+    height: 100%;
+    background-color: #333;
+    color: white;
+    transition: right 0.3s ease; /* Hiệu ứng trượt mượt */
+    box-shadow: -2px 0 5px rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    padding: 20px;
+  }
+  
+  .side-menu.open {
+    right: 0; /* Hiển thị menu khi có class "open" */
+  }
+  
+  .side-menu button {
+    background: none;
+    color: white;
+    border: none;
+    font-size: 20px;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+  }
+  
+  .side-menu ul {
+    list-style: none;
+    padding: 0;
+    margin-top: 50px;
+  }
+  
+  .side-menu ul li {
+    margin: 15px 0;
+  }
+  
+  .side-menu ul li a {
+    display: flex;
+    justify-content: center;
+    color: white;
+    text-decoration: none !important;
+    font-size: 18px;
+  }
+  
+  .side-menu ul li a:hover {
+    text-decoration: underline;
+  }

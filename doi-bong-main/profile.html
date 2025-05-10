@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cat Club Never Sai</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="Css/reset.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="Css/header.css">
+    <link rel="stylesheet" href="Css/footer.css">
+    <link rel="stylesheet" href="Css/profile.css">
+</head>
+<body>
+    <header class="header">
+        <div class="header-top">
+            <div class="container">
+                <div class="header-top-inner">
+                    <ul class="nav-account">
+                        <li class="nav-account-item">
+                            <a id="account-link">YOUR ACCOUNT</a>
+                        </li>
+
+                        <li class="nav-account-item">
+                            <a id="logout-link">LOGOUT</a>
+                        </li>
+
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="header-secondary">
+            <div class="container">
+                <div class="header-secondary-inner">
+                    <div class="container">
+                        <div class="header-info-block">
+
+                            <div class="header-info-logo">
+                                <a>
+                                    <img src="Pic/logohtml.svg">
+                                </a>
+                            </div>
+
+                            <ul class="header-info-bal">
+                                <li class="small-bal">
+                                    <a href="index.html">TRANG CHỦ</a>
+                                </li>
+
+                                <li class="small-bal">
+                                    <a href="cal.html">LỊCH ĐẤU</a>
+                                </li>
+
+                                <li class="small-bal">
+                                    <div class="dropdown">
+                                        <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                        THỂ LOẠI
+                                        </button>
+                                        <ul class="dropdown-menu">
+                                            <li><a class="dropdown-item" href="team.html">Đội Bóng</a></li>
+                                            <li><a class="dropdown-item" href="cooperate.html">Hợp Tác</a></li>
+                                            <li><a class="dropdown-item" href="contact.html">Liên Hệ</a></li>
+                                        </ul>
+                                    </div>
+                                </li>
+
+                                <li class="small-bal">
+                                    <a href="news.html">TIN TỨC</a>
+                                </li>
+
+                                <li class="small-bal" id="openMenuButton">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" class="bi bi-filter" viewBox="0 0 16 16">
+                                        <path d="M6 10.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5m-2-3a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5m-2-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5"/>
+                                    </svg>
+                                </li>
+                            </ul>
+
+                            <div class="side-menu" id="sideMenu">
+                                <button id="closeMenuButton">✖</button>
+                                <ul>
+                                    <li><a href="index.html">Trang Chủ</a></li>
+                                    <li><a href="#">Số Dư</a></li>
+                                    <li><a href="team.html">Đội Bóng</a></li>
+                                    <li><a href="contact.html">Hỗ Trợ</a></li>
+                                </ul>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="content">
+        <div class="container mt-5 profile-container">
+            <div class="row align-items-center">
+                <!-- Ảnh đại diện và thông tin cơ bản -->
+                <div class="col-md-4 text-center profile-left">
+                    <img src="Pic/avatar.jpg" alt="Ảnh đại diện" class="img-fluid rounded-circle profile-img">
+                    <h3 class="player-name">Nguyễn Văn A</h3>
+                    <p class="player-number">Số áo: 10</p>
+                    <p class="player-position">Tiền đạo</p>
+                    <p class="player-age">Tuổi: 25</p>
+                </div>
+    
+                <!-- Thông tin chi tiết -->
+                <div class="col-md-8 profile-right">
+                    <div class="info-box">
+                        <p><strong>User Name:</strong> ABC </p>
+                    </div>
+
+                    <div class="info-box">
+                        <p><strong>Thành tích:</strong> Vua phá lưới mùa giải 2023, Cầu thủ xuất sắc nhất năm.</p>
+                    </div>
+                    
+                    <div class="info-box">
+                        <p><strong>SDT:</strong> Cat Club Never Sai</p>
+                    </div>
+
+                    <div class="info-box">
+                        <p><strong>Email:</strong> Cat Club Never Sai</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">
+        <div class="container">
+            <div class="footer-inner">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="footer-copyright">
+                            <a>POWER BY </a>
+                            <a href="index.html">CAT CLUB</a>
+                        </div>
+                    </div>
+
+                    <div class="col-md-8">
+                        <ul class="footer-nav footer-nav--right footer-nav--condensed footer-nav--sm">
+                            <li class="footer-nav-item">
+                                <a href="index.html">Trang Chủ</a>
+                            </li>
+
+                            <li class="footer-nav-item">
+                                <a href="contact.html">Liên Hệ</a>
+                            </li>
+
+                            <li class="footer-nav-item">
+                                <a href="cal.html">Lịch Đấu</a>
+                            </li>
+
+                            <li class="footer-nav-item">
+                                <a href="news.html">Tin Tức</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script src="Js/sidemenu.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jwt-decode@3.1.2/build/jwt-decode.min.js"></script>
+
+    <script src="Js/profile.js"></script>
+</body>
+</html>

@@ -1,0 +1,49 @@
+a{
+    text-decoration: none;
+    color: black;
+}
+
+body{
+    background-color: #f0eded;
+    font-size: 15px;
+    line-height: 26px;
+    font-family: Source Sans Pro, sans-serif;
+    font-weight: 400;
+}
+
+/* content */
+.profile-container {
+    background: #f8f9fa;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+.profile-left {
+    text-align: center;
+}
+.profile-img {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    border: 5px solid #fff;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+.player-name {
+    font-size: 24px;
+    font-weight: bold;
+    margin-top: 10px;
+}
+.player-position, .player-age, .player-number {
+    font-size: 18px;
+    color: #6c757d;
+}
+.profile-right {
+    display: grid;
+    gap: 10px;
+}
+.info-box {
+    background: #fff;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}

@@ -1,0 +1,96 @@
+a{
+    text-decoration: none !important;
+    color: black;
+}
+
+.small-bal a:hover{
+    color: black !important;
+}
+
+body{
+    background-color: #f0eded;
+    font-size: 15px;
+    line-height: 26px;
+    font-family: Source Sans Pro, sans-serif;
+    font-weight: 400;
+}
+
+/* Tìm kiếm */
+.content{
+    padding: 50px 0 50px;
+}
+
+.content .main-name-team{
+    display: flex;
+    justify-content: center;
+    padding-bottom: 20px;
+    font-size: 30px;
+    font-weight: 600;
+}
+
+#searchTeam {
+    background-color: #fff;
+    color: #333;
+    border: 2px solid #d63384;
+    border-radius: 8px;
+    padding: 8px;
+}
+/* Card đội bóng */
+.team-card {
+    cursor: pointer;
+    border: 2px solid #d63384;
+    border-radius: 12px;
+    overflow: hidden;
+    transition: 0.3s ease-in-out;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(214, 51, 132, 0.2);
+}
+.team-card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 12px rgba(214, 51, 132, 0.4);
+}
+.team-card img {
+    height: 150px;
+    object-fit: cover;
+    border-bottom: 2px solid #d63384;
+}
+.team-card .card-body {
+    text-align: center;
+}
+/* Modal */
+.modal-content {
+    background-color: #fff;
+    color: #333;
+    border-radius: 12px;
+    border: 2px solid #d63384;
+}
+.modal-header {
+    background-color: #fde2e4;
+    border-bottom: 2px solid #d63384;
+}
+.modal-footer {
+    border-top: 2px solid #d63384;
+}
+/* Thành viên */
+.member-card {
+    display: flex;
+    align-items: center;
+    background-color: #f8d7da;
+    padding: 10px;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    border-left: 4px solid #d63384;
+}
+.member-card img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin-right: 10px;
+    border: 2px solid #d63384;
+}
+
+/* css nut close */
+.modal-footer .btn:hover{
+    background-color: #fff !important;
+    border-color: #fff !important;
+}

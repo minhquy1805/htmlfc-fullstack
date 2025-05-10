@@ -1,0 +1,67 @@
+.footer{
+    background-color: #16171a;
+}
+
+.footer-inner{
+    background-color: #16171a;
+    padding: 24px 0;
+    position: relative;
+    border-top: 0 solid transparent;
+}
+
+.footer-copyright {
+    font-size: 9px;
+    text-transform: uppercase;
+    font-family: Montserrat, sans-serif;
+    font-weight: 700;
+    letter-spacing: -.02em;
+    color: #9a9da2;
+    text-align: center;
+}
+
+.footer-copyright a {
+    color: #fff;
+    transition: color .2s ease;
+}
+
+.col-md-8{
+    display: flex;
+    justify-content: right;
+    align-items: center;
+}
+
+.footer-nav {
+    display: flex;
+    justify-content: right;
+    align-items: center;
+    padding: 0;
+    margin: 0;
+    font-family: Montserrat, sans-serif;
+    text-transform: uppercase;
+    font-size: 11px;
+    line-height: 1.2em;
+    font-weight: 700;
+}
+
+.footer-nav--right {
+    text-align: right;
+}
+
+.footer-nav--sm {
+    font-size: 9px;
+}
+
+.footer-nav--condensed .footer-nav-item {
+    padding: 0 15px;
+}
+
+.footer-nav-item a {
+    color: #fff !important;
+    display: inline-block;
+    padding: .5em;
+    transition: color .2s ease;
+}
+
+.footer-copyright-main-name:hover{
+    color: rgb(28, 173, 246);
+}

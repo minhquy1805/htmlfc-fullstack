@@ -1,0 +1,73 @@
+a{
+  text-decoration: none;
+  color: black;
+}
+
+.small-bal a:hover{
+  color: black !important;
+}
+
+body{
+    background-color: #f0eded;
+    font-size: 15px;
+    line-height: 26px;
+    font-family: Source Sans Pro, sans-serif;
+    font-weight: 400;
+}
+
+/* ====== Phần Thông Tin Liên Hệ ====== */
+.contact-info-container {
+    max-width: 600px;
+    background: #ffe4e1; /* Hồng nhạt */
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.15); /* Đổ bóng nhẹ màu đen */
+    margin: 40px auto;
+    border: 2px solid #ffb6c1; /* Viền hồng nhạt */
+  }
+  
+  /* Tiêu đề Thông Tin Liên Hệ */
+  .contact-info-title {
+    color: #ff1493; /* Hồng đậm */
+    text-align: center;
+    font-weight: bold;
+    font-size: 22px;
+  }
+  
+  /* Danh sách thông tin */
+  .contact-info-list {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .contact-info-item {
+    background: #ffc0cb; /* Hồng pastel */
+    padding: 12px;
+    border-radius: 8px;
+    margin: 6px 0;
+    border-left: 5px solid #ff69b4; /* Viền hồng đậm */
+    font-size: 16px;
+    color: #333; /* Chữ xám đậm để dễ đọc */
+  }
+  
+  /* ====== Phần Bản Đồ ====== */
+  .map-container {
+    max-width: 800px;
+    margin: 40px auto;
+    text-align: center;
+  }
+  
+  .map-title {
+    color: #ff1493; /* Hồng neon */
+    font-size: 22px;
+    font-weight: bold;
+    margin-bottom: 15px;
+  }
+  
+  .map-container iframe {
+    width: 100%;
+    border-radius: 12px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.15); /* Đổ bóng nhẹ màu đen */
+    border: 2px solid #ff69b4; /* Viền hồng nổi bật */
+  }
+  

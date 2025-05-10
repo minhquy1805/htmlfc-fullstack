@@ -1,0 +1,65 @@
+.widget-social{
+    padding-bottom: 18px;
+}
+
+.facebook-widget {
+    height: 180px;
+    background-color: #4267B2;
+    color: white;
+    border-radius: 15px;
+    text-align: center;
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+    overflow: hidden;
+    font-family: Arial, sans-serif;
+    transition: transform 0.3s ease;
+}
+
+.facebook-widget:hover {
+    transform: scale(1.02);
+}
+
+.facebook-widget header {
+    padding: 20px 15px;
+    background: linear-gradient(135deg, #3b5998, #4267B2);
+}
+
+.facebook-widget header h1 {
+    font-size: 20px;
+    margin: 15px 0 5px;
+    font-weight: bold;
+}
+
+.facebook-widget header .icon {
+    font-size: 50px;
+}
+
+.facebook-widget .like-button {
+    margin: 5px auto;
+    width: 60px;
+    height: 60px;
+    background-color: white;
+    color: #4267B2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    cursor: pointer;
+    border: none;
+    font-size: 25px;
+    font-weight: bold;
+    transition: background-color 0.3s, transform 0.2s;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.facebook-widget .like-button:hover {
+    background-color: #f0f2f5;
+    transform: scale(1.1);
+}
+
+.facebook-widget footer iframe {
+    width: 100%;
+    border: none;
+    height: 400px;
+    border-radius: 0 0 15px 15px;
+    overflow: hidden;
+}
