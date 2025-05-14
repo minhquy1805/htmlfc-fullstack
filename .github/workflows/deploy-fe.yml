@@ -1,0 +1,31 @@
+name: Deploy Frontend
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout source
+      uses: actions/checkout@v3
+
+    - name: Setup SSH
+      run: |
+        mkdir -p ~/.ssh
+        echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+        chmod 600 ~/.ssh/id_rsa
+        ssh-keyscan -H ${{ secrets.VM_HOST }} >> ~/.ssh/known_hosts
+
+    - name: SSH and deploy frontend
+      run: |
+        ssh ${{ secrets.VM_USER }}@${{ secrets.VM_HOST }} << 'EOF'
+          cd ~/htmlfc-fe
+          git pull origin main
+          docker compose down
+          docker compose build
+          docker compose up -d
+        EOF

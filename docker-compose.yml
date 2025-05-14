@@ -1,0 +1,24 @@
+version: '3.8'
+
+services:
+  admin_fe:
+    build:
+      context: ./htmlfc-admin
+    container_name: htmlfc_admin_fe
+    ports:
+      - "3000:80"
+    networks:
+      - htmlfc-net
+
+  doibong_fe:
+    build:
+      context: ./doi-bong-main
+    container_name: htmlfc_doibong_fe
+    ports:
+      - "3001:80"
+    networks:
+      - htmlfc-net
+
+networks:
+  htmlfc-net:
+    driver: bridge
