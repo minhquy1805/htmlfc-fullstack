@@ -22,8 +22,11 @@ jobs:
 
     - name: SSH and deploy frontend
       run: |
-        ssh ${{ secrets.VM_USER }}@${{ secrets.VM_HOST }} << 'EOF'
-          cd ~/htmlfc-fe
+        ssh ${{ secrets.VM_USER }}@${{ secrets.VM_HOST }} << EOF
+          if [ ! -d /home/${{ secrets.VM_USER }}/htmlfc-fe/.git ]; then
+            git clone https://github.com/minhquy1805/htmlfc-fullstack.git /home/${{ secrets.VM_USER }}/htmlfc-fe
+          fi
+          cd /home/${{ secrets.VM_USER }}/htmlfc-fe
           git pull origin main
           docker compose down
           docker compose build
