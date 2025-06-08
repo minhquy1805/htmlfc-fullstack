@@ -1,0 +1,7 @@
+@media (max-width: 992px) {
+  .calendar-wrapper .fc-header-toolbar {
+    flex-direction: column !important;
+    align-items: flex-start;
+    
+  }
+}

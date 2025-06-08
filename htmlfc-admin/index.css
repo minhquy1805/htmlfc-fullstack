@@ -1,0 +1,12 @@
+::selection {
+  background: #1890ff; /* hoặc #ff69b4 cho màu hồng */
+  color: white;
+}
+
+body {
+  cursor: url("./src/assets/custom-cursor.png") 0 0, auto;
+}
+
+button, a, .ant-btn {
+  cursor: pointer;
+}

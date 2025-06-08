@@ -20,7 +20,7 @@ const { Text } = Typography;
 export default function LoginPage() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [form] = Form.useForm(); // ✅ form instance để set giá trị
+  const [form] = Form.useForm();
 
   useEffect(() => {
     const savedUsername = localStorage.getItem("savedUsername");
@@ -34,31 +34,33 @@ export default function LoginPage() {
 
   const onFinish = async (values) => {
     try {
-      const { token } = await loginApi(values.username, values.password);
-  
-      // Lưu token theo lựa chọn
+      const { accessToken, refreshToken } = await loginApi(values.username, values.password);
+
+      // Lưu token và refreshToken
       if (values.remember) {
-        localStorage.setItem("token", token);                  // ✅ Lưu lâu dài
+        localStorage.setItem("token", accessToken);
+        localStorage.setItem("refreshToken", refreshToken);
         localStorage.setItem("savedUsername", values.username);
       } else {
-        sessionStorage.setItem("token", token);                // ✅ Lưu tạm thời
+        sessionStorage.setItem("token", accessToken);
+        sessionStorage.setItem("refreshToken", refreshToken);
         localStorage.removeItem("savedUsername");
       }
-  
-      // Giải mã token → dispatch login
-      const payload = JSON.parse(atob(token.split('.')[1]));
+
+      // Giải mã accessToken
+      const payload = JSON.parse(atob(accessToken.split('.')[1]));
       const user = {
         id: payload.MemberId,
         username: payload.Username,
         role: payload.Role,
       };
-  
+
       dispatch(login(user));
       message.success("Đăng nhập thành công!");
       navigate("/");
-  
+
     } catch (err) {
-      message.error("Đăng nhập thất bại!");
+      message.error("Đăng nhập thất bại. Vui lòng kiểm tra lại tài khoản và mật khẩu.");
     }
   };
 
@@ -73,7 +75,7 @@ export default function LoginPage() {
     >
       <Card title="Đăng nhập" style={{ width: 400 }}>
         <Form
-          form={form} // ✅ dùng form instance
+          form={form}
           onFinish={onFinish}
           layout="vertical"
           initialValues={{ remember: false }}
