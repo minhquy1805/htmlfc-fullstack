@@ -1,13 +1,14 @@
 import { Menu } from "antd";
 import {
   DashboardOutlined,
-  TeamOutlined,
-  SettingOutlined,
+  // TeamOutlined,
+  // SettingOutlined,
   LogoutOutlined,
   UserOutlined,
   FileTextOutlined, // 👉 icon cho mục Tin tức
   CalendarOutlined,
-  SafetyCertificateOutlined 
+  SafetyCertificateOutlined ,
+  IdcardOutlined
 } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
@@ -68,11 +69,18 @@ export default function Sidebar() {
       onClick: () => navigate("/certificate-type"),
     },
     {
-      key: "settings",
-      icon: <SettingOutlined />,
-      label: "Cài đặt",
-      onClick: () => navigate("/settings"),
+      key: "certificate",
+      icon: < IdcardOutlined/>,
+      label: "Chứng chỉ",
+      path: "/certificate",
     },
+    
+    // {
+    //   key: "settings",
+    //   icon: <SettingOutlined />,
+    //   label: "Cài đặt",
+    //   onClick: () => navigate("/settings"),
+    // },
     {
       key: "logout",
       icon: <LogoutOutlined />,
