@@ -19,37 +19,53 @@ body{
     max-width: 800px;
     margin: 50px auto;
 }
+
 .calendar-header {
     text-align: center;
+    margin-bottom: 30px;
 }
+
 .day {
     width: 14.285%;
     text-align: center;
     padding: 10px;
     box-sizing: border-box;
 }
+
 .day-name {
+    display: flex;
+    justify-content: center;
     font-weight: bold;
 }
+
 .day:hover {
     background-color: #f0f0f0;
 }
+
 .selected-day {
     background-color: #ff80ab;
     color: white;
 }
+
 .match-day {
     background-color: #ffeb3b;
     color: #333;
     font-weight: bold;
 }
+
 .match-icon {
     font-size: 18px;
     color: #ff5722;
 }
+
 .match-info {
     background-color: #f0f0f0;
     padding: 10px;
     border-radius: 5px;
     margin-top: 10px;
+}
+
+.calendar-days{
+    display: flex;
+    gap: 50px;
 }
