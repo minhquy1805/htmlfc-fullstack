@@ -78,34 +78,74 @@ fetch("http://35.247.156.29:8080/api/v1/NewsApi/selectall")
 
 
 
-// countdown
-// Set the target date and time
-const targetDate = new Date("2025-02-23T10:00:00").getTime();
+// dem nguoc tran dau gan nhat dien ra
+  async function fetchNextMatchPreview() {
+    const response = await fetch("http://35.247.156.29:8080/api/v1/CalendarApi/selectall");
+    const data = await response.json();
+    const container = document.querySelector(".match-preview");
 
-// Update the countdown every 1 second
-const updateCountdown = () => {
-  const now = new Date().getTime();
-  const distance = targetDate - now;
+    if (!Array.isArray(data) || data.length === 0) {
+      container.innerHTML = `<p style="text-align:center; font-weight:bold;">Không có trận đấu sắp tới</p>`;
+      return;
+    }
 
-  if (distance > 0) {
-    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+    const now = new Date();
 
-    document.getElementById("days").textContent = String(days).padStart(2, "0");
-    document.getElementById("hours").textContent = String(hours).padStart(2, "0");
-    document.getElementById("minutes").textContent = String(minutes).padStart(2, "0");
-    document.getElementById("seconds").textContent = String(seconds).padStart(2, "0");
-  } else {
-    document.querySelector(".countdown-container").innerHTML = "Time's up!";
+    // Lọc trận có lịch thi đấu >= hiện tại
+    const upcomingMatches = data
+      .filter(match => new Date(match.calendarTime) >= now)
+      .sort((a, b) => new Date(a.calendarTime) - new Date(b.calendarTime));
+
+    if (upcomingMatches.length === 0) {
+      container.innerHTML = `<p style="text-align:center; font-weight:bold;">Không có trận đấu sắp tới</p>`;
+      return;
+    }
+
+    const match = upcomingMatches[0];
+    const matchDate = new Date(match.calendarTime);
+    const formattedDate = matchDate.toLocaleDateString("vi-VN");
+
+    // Cập nhật HTML
+    container.querySelector(".match-preview-date").innerText = formattedDate;
+    container.querySelector(".match-preview-date").setAttribute("datetime", match.calendarTime);
+    container.querySelector(".match-preview-title").innerText = match.event || "Giao Hữu";
+
+    // Tách tên đội từ title nếu có dạng "Team A vs Team B"
+    const teams = match.title.split(" vs ");
+    container.querySelector(".match-preview-team--first .match-preview-team-name").innerText = teams[0] || "Đội 1";
+    container.querySelector(".match-preview-team--second .match-preview-team-name").innerText = teams[1] || "Đội 2";
+
+    // Bắt đầu countdown
+    startCountdown(matchDate);
   }
-};
 
-setInterval(updateCountdown, 1000);
-updateCountdown();
+  function startCountdown(matchDate) {
+    const countdownInterval = setInterval(() => {
+      const now = new Date().getTime();
+      const distance = matchDate.getTime() - now;
 
-// lich dau thu gon
+      if (distance < 0) {
+        clearInterval(countdownInterval);
+        document.querySelector(".countdown-container").innerHTML = `<p style="text-align:center;">Đã diễn ra</p>`;
+        return;
+      }
+
+      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+      document.getElementById("days").innerText = String(days).padStart(2, "0");
+      document.getElementById("hours").innerText = String(hours).padStart(2, "0");
+      document.getElementById("minutes").innerText = String(minutes).padStart(2, "0");
+      document.getElementById("seconds").innerText = String(seconds).padStart(2, "0");
+    }, 1000);
+  }
+
+  document.addEventListener("DOMContentLoaded", fetchNextMatchPreview);
+
+
+// lich dau thu gon , danh sach
 function formatMatchTime(isoDateTime) {
     const date = new Date(isoDateTime);
     return date.toLocaleTimeString("vi-VN", { hour: "2-digit", minute: "2-digit" }) +
@@ -125,7 +165,7 @@ fetch("http://35.247.156.29:8080/api/v1/CalendarApi/selectall")
             const row = document.createElement("tr");
 
             row.innerHTML = `
-                <td>${match.event}</td>
+                <td>${match.title}</td>
                 <td>${formatMatchTime(match.calendarTime)}</td>
             `;
 
