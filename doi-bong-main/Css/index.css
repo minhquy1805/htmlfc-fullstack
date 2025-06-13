@@ -443,7 +443,8 @@ body{
 .posts-item--card .posts-thumb img{
     display: block;
     width: 100%;
-    height: auto;
+    height: 250px;
+    object-fit: cover;
     transition: transform .5s ease;
     backface-visibility: hidden;
 }

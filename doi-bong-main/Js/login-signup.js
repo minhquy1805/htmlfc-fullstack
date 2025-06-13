@@ -1,3 +1,4 @@
+
 document.addEventListener("DOMContentLoaded", function () {
     const loginForm = document.getElementById("login-form");
     const signupForm = document.getElementById("signup-form");
@@ -5,7 +6,6 @@ document.addEventListener("DOMContentLoaded", function () {
     const showLogin = document.getElementById("show-login");
     const formTitle = document.getElementById("form-title");
 
-    // ========== Thêm phần tử xác thực email ==========
     const verifyContainer = document.createElement("div");
     verifyContainer.classList.add("hidden", "mt-4");
     verifyContainer.innerHTML = `
@@ -19,31 +19,6 @@ document.addEventListener("DOMContentLoaded", function () {
     const verifyInput = document.getElementById("verification-code");
     const verifyButton = document.getElementById("verify-button");
     const resendButton = document.getElementById("resend-button");
-
-    const token = localStorage.getItem("token");
-    if (token) {
-        try {
-            const decodedToken = jwt_decode(token);
-            const role = decodedToken.role;
-            const memberId = decodedToken.nameid;
-
-            if (memberId) {
-                localStorage.setItem("MemberId", memberId);
-            }
-            if (role) {
-                localStorage.setItem("role", role);
-            }
-
-            if (role === "admin") {
-                console.log("Đang đăng nhập với quyền admin.");
-            } else {
-                console.log("Đang đăng nhập với quyền user.");
-            }
-        } catch (error) {
-            console.error("Lỗi giải mã token:", error);
-            alert("Token không hợp lệ.");
-        }
-    }
 
     showSignup.addEventListener("click", function (e) {
         e.preventDefault();
@@ -61,76 +36,86 @@ document.addEventListener("DOMContentLoaded", function () {
         formTitle.innerText = "Đăng Nhập";
     });
 
-    // Xử lý đăng nhập
-    loginForm.addEventListener("submit", async function (e) {
-        e.preventDefault();
-        const username = loginForm.querySelector("input[type='text']").value;
-        const password = loginForm.querySelector("input[type='password']").value;
+    if (loginForm) {
+        loginForm.addEventListener("submit", async function (e) {
+            e.preventDefault();
 
-        try {
-            const res = await fetch("https://localhost:7068/api/v1/login", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ username, password }),
-            });
+            const username = loginForm.querySelector("input[type='text']").value;
+            const password = loginForm.querySelector("input[type='password']").value;
 
-            const text = await res.text();
-            let data = {};
-            try {
-                data = JSON.parse(text);
-            } catch (e) {
-                console.warn("Phản hồi không phải JSON hợp lệ:", text);
-            }
-
-            if (!res.ok) throw new Error(data.message || text || "Đăng nhập thất bại.");
-
-            const token = data.token;
-            console.log("Token:", token);
-
-            localStorage.setItem("token", token);
-
-            let decodedToken = null;
-
-            try {
-                decodedToken = jwt_decode(token);
-                console.log("Decoded Token:", decodedToken);
-            } catch (decodeError) {
-                console.error("❌ Không thể giải mã token:", decodeError);
-                alert("Token không hợp lệ. Vui lòng đăng nhập lại.");
-                // localStorage.removeItem("token");
+            if (!username || !password) {
+                alert("Vui lòng nhập đầy đủ tài khoản và mật khẩu.");
                 return;
             }
 
+            try {
+                const res = await fetch("http://35.247.156.29:8080/api/v1/login", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ username, password }),
+                });
 
-            const memberId = decodedToken.nameid;
-            const role = decodedToken.role;
+                const text = await res.text();
+                let data = {};
+                try {
+                    data = JSON.parse(text);
+                } catch (e) {
+                    throw new Error("Phản hồi từ server không hợp lệ.");
+                }
 
-            if (!memberId) {
-                console.error("MemberId không tồn tại trong token.");
-                alert("Lỗi: Không tìm thấy MemberId trong token.");
-                return;
+                if (!res.ok) {
+                    alert(data.message || "Sai tài khoản hoặc mật khẩu.");
+                    return;
+                }
+
+                const accessToken = data.accessToken;
+                const refreshToken = data.refreshToken;
+
+                if (!accessToken || !refreshToken) {
+                    throw new Error("Thiếu accessToken hoặc refreshToken.");
+                }
+
+                if (typeof accessToken !== "string" || accessToken.split(".").length !== 3) {
+                    throw new Error("AccessToken không đúng định dạng JWT.");
+                }
+
+                localStorage.setItem("accessToken", accessToken);
+                localStorage.setItem("refreshToken", refreshToken);
+
+                let decodedToken = null;
+                try {
+                    decodedToken = jwt_decode(accessToken);
+                } catch (decodeError) {
+                    alert("Token lỗi. Vui lòng đăng nhập lại.");
+                    window.authUtils.logout();
+                    return;
+                }
+
+                const memberId = decodedToken.nameid;
+                const role = decodedToken.role;
+
+                if (!memberId) {
+                    alert("Không tìm thấy MemberId trong token.");
+                    return;
+                }
+
+                localStorage.setItem("MemberId", memberId);
+                localStorage.setItem("role", role);
+
+                if (role === "admin") {
+                    window.location.href = "/admin.html";
+                } else {
+                    window.location.href = "/index.html";
+                }
+
+            } catch (error) {
+                alert(error.message);
             }
-
-            localStorage.setItem("MemberId", memberId);
-            localStorage.setItem("role", role);
-
-            checkUserRole(role);
-
-        } catch (error) {
-            console.error("Lỗi đăng nhập:", error);
-            alert(error.message);
-        }
-    });
-
-    function checkUserRole(role) {
-        if (role === "admin") {
-            window.location.href = "/admin.html";
-        } else {
-            window.location.href = "/index.html";
-        }
+        });
     }
 
-    // Xử lý đăng ký
+    // xu ly dang ki
+
     signupForm.addEventListener("submit", async function (e) {
         e.preventDefault();
         const username = signupForm.querySelector("input[type='text']").value;
@@ -138,7 +123,7 @@ document.addEventListener("DOMContentLoaded", function () {
         const password = signupForm.querySelector("input[type='password']").value;
 
         try {
-            const res = await fetch("https://localhost:7068/api/v1/MemberApi/insert", {
+            const res = await fetch("http://35.247.156.29:8080/api/v1/MemberApi/insert", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ username, email, password }),
@@ -149,41 +134,36 @@ document.addEventListener("DOMContentLoaded", function () {
             try {
                 data = JSON.parse(text);
             } catch (e) {
-                console.warn("Phản hồi không phải JSON hợp lệ:", text);
+                console.warn("Phản hồi không hợp lệ:", text);
             }
 
             if (!res.ok) throw new Error(data.message || text || "Đăng ký thất bại.");
 
-            alert("Đăng ký thành công! Vui lòng kiểm tra email và nhập mã xác thực.");
-
+            alert("Đăng ký thành công! Kiểm tra email để xác thực.");
             signupForm.classList.add("hidden");
             verifyContainer.classList.remove("hidden");
-
-            localStorage.setItem("verifying_username", username);
             localStorage.setItem("verifying_email", email);
 
         } catch (error) {
-            console.error("Lỗi đăng ký:", error);
             alert(error.message);
         }
     });
 
-        // Xác thực email
     verifyButton.addEventListener("click", async function (e) {
         e.preventDefault();
         const email = localStorage.getItem("verifying_email");
         const code = verifyInput.value.trim();
 
-        if (!code || !email || email === "null" || email.trim() === "") {
-            alert("Vui lòng nhập mã xác thực và đảm bảo email hợp lệ.");
+        if (!code || !email) {
+            alert("Vui lòng nhập mã xác thực và email hợp lệ.");
             return;
         }
 
         try {
-            const res = await fetch("https://localhost:7068/api/v1/verify-email", {
+            const res = await fetch("http://35.247.156.29:8080/api/v1/verify-email", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ email, code }), // ✅ truyền email
+                body: JSON.stringify({ email, code }),
             });
 
             const text = await res.text();
@@ -191,32 +171,22 @@ document.addEventListener("DOMContentLoaded", function () {
             try {
                 data = JSON.parse(text);
             } catch (e) {
-                console.warn("❗ Phản hồi không phải JSON hợp lệ:", text);
+                console.warn("Phản hồi không hợp lệ:", text);
             }
 
-            if (!res.ok) {
-                console.error("❌ Xác thực thất bại:", data.message || text);
-                throw new Error(data.message || text || "Xác thực thất bại.");
-            }
+            if (!res.ok) throw new Error(data.message || text || "Xác thực thất bại.");
 
-            alert("✅ Xác thực thành công! Hãy đăng nhập.");
+            alert("Xác thực thành công! Hãy đăng nhập.");
             verifyContainer.classList.add("hidden");
             loginForm.classList.remove("hidden");
             formTitle.innerText = "Đăng Nhập";
-
-            // Dọn localStorage
-            localStorage.removeItem("verifying_username");
             localStorage.removeItem("verifying_email");
 
         } catch (error) {
-            console.error("💥 Lỗi xác thực:", error);
-            alert(error.message || "Đã xảy ra lỗi trong quá trình xác thực.");
+            alert(error.message);
         }
     });
 
-
-
-    // Gửi lại mã xác thực
     resendButton.addEventListener("click", async function (e) {
         e.preventDefault();
         const email = localStorage.getItem("verifying_email");
@@ -227,7 +197,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
         try {
-            const res = await fetch("https://localhost:7068/api/v1/resend-email", {
+            const res = await fetch("http://35.247.156.29:8080/api/v1/resend-email", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ email }),
@@ -238,14 +208,13 @@ document.addEventListener("DOMContentLoaded", function () {
             try {
                 data = JSON.parse(text);
             } catch (e) {
-                console.warn("Phản hồi không phải JSON hợp lệ:", text);
+                console.warn("Phản hồi không hợp lệ:", text);
             }
 
             if (!res.ok) throw new Error(data.message || text || "Gửi lại mã thất bại.");
 
             alert("Mã xác thực đã được gửi lại vào email.");
         } catch (error) {
-            console.error("Lỗi gửi lại mã:", error);
             alert(error.message);
         }
     });

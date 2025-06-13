@@ -24,37 +24,58 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
 
-// nut xem them 
-document.addEventListener('DOMContentLoaded', function () {
-  const posts = document.querySelectorAll('.post-grid-item'); // Lấy tất cả bài viết
-  const initialVisible = 8; // Số bài viết hiển thị ban đầu
+// thong tin cac news
+function formatDate(isoDateStr) {
+    const date = new Date(isoDateStr);
+    return date.toLocaleDateString("vi-VN", {
+        year: "numeric",
+        month: "long",
+        day: "numeric"
+    });
+}
 
-  // Ẩn tất cả bài viết vượt quá số lượng ban đầu
-  posts.forEach((post, index) => {
-      if (index >= initialVisible) {
-          post.classList.add('hidden');
-      }
-  });
+function loadNews(newsList, targetSelector, startIndex = 0, limit = 4) {
+    const container = document.querySelector(`${targetSelector} .post-grid`);
+    if (!container) return;
 
-  // Thêm sự kiện cho nút "Xem Thêm"
-  const loadMoreBtn = document.getElementById('loadMoreBtn');
-  loadMoreBtn.addEventListener('click', function () {
-      let count = 0;
+    container.innerHTML = "";
+    const sliced = newsList.slice(startIndex, startIndex + limit);
 
-      // Hiển thị thêm tối đa 4 bài viết
-      posts.forEach(post => {
-          if (post.classList.contains('hidden') && count < 4) {
-              post.classList.remove('hidden');
-              count++;
-          }
-      });
+    sliced.forEach(news => {
+        const div = document.createElement("div");
+        div.className = "post-grid-item col-sm-6";
+        div.innerHTML = `
+            <div class="posts-item posts-item--card posts-item--category-2 card">
+                <figure class="posts-thumb">
+                    <a href="news-detail.html?id=${news.newsId}">
+                        <img src="${news.image}" alt="${news.title}">
+                    </a>
+                </figure>
+                <div class="posts-thumb-content">
+                    <h6 class="posts-title">
+                        <time datetime="${news.createdAt}" class="posts-date">${formatDate(news.createdAt)}</time>
+                        <a href="news-detail.html?id=${news.newsId}">${news.title}</a>
+                    </h6>
+                </div>
+            </div>
+        `;
+        container.appendChild(div);
+    });
+}
 
-      // Ẩn nút "Xem Thêm" nếu không còn bài viết nào để hiển thị
-      if (document.querySelectorAll('.post-grid-item.hidden').length === 0) {
-          loadMoreBtn.style.display = 'none';
-      }
-  });
-});
+// Gọi API và chia tin ra 2 phần
+fetch("http://35.247.156.29:8080/api/v1/NewsApi/selectall")
+    .then(res => res.json())
+    .then(data => {
+        if (!Array.isArray(data)) return;
+
+        loadNews(data, "#latestNewsBlock1", 0, 4);   // tin đầu tiên
+        loadNews(data, "#latestNewsBlock2", 4, 2);   // tiếp theo 4 tin
+    })
+    .catch(err => {
+        console.error("Lỗi khi gọi API tin tức:", err);
+    });
+
 
 
 // countdown
@@ -84,6 +105,36 @@ const updateCountdown = () => {
 setInterval(updateCountdown, 1000);
 updateCountdown();
 
+// lich dau thu gon
+function formatMatchTime(isoDateTime) {
+    const date = new Date(isoDateTime);
+    return date.toLocaleTimeString("vi-VN", { hour: "2-digit", minute: "2-digit" }) +
+           " " +
+           date.toLocaleDateString("vi-VN");
+}
+
+fetch("http://35.247.156.29:8080/api/v1/CalendarApi/selectall")
+    .then(res => res.json())
+    .then(data => {
+        const tableBody = document.getElementById("matchScheduleBody");
+        if (!tableBody || !Array.isArray(data)) return;
+
+        tableBody.innerHTML = "";
+
+        data.forEach(match => {
+            const row = document.createElement("tr");
+
+            row.innerHTML = `
+                <td>${match.event}</td>
+                <td>${formatMatchTime(match.calendarTime)}</td>
+            `;
+
+            tableBody.appendChild(row);
+        });
+    })
+    .catch(err => {
+        console.error("Lỗi khi tải lịch đấu:", err);
+    });
 
 
 
