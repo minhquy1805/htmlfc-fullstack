@@ -1,3 +1,5 @@
+<!-- day la Certificate -->
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -94,44 +96,15 @@
         </div>
     </header>
 
+
     <div class="content">
         <div class="container">
-            <h2 class="main-name-team">Danh sách các đội bóng</h2>
-            
-            <!-- Thanh tìm kiếm -->
-            <input type="text" id="searchTeam" class="form-control mb-4" placeholder="Tìm đội bóng..." onkeyup="searchTeam()">
-            
-            <!-- Danh sách các đội bóng -->
-            <div class="row" id="teamList">
-                <div class="col-md-4">
-                    <div class="card team-card" onclick="showTeamMembers('team1')">
-                        <img src="team1-logo.jpg" class="card-img-top" alt="Team 1">
-                        <div class="card-body">
-                            <h5 class="card-title">Đội Bóng 1</h5>
-                        </div>
-                    </div>
-                </div>
-            </div>
-    
-            <!-- Modal Hiển thị thành viên -->
-            <div class="modal fade" id="membersModal" tabindex="-1">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title">Thành viên Đội Bóng</h5>
-                            <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        </div>
-                        <div class="modal-body" id="membersList">
-                            <!-- Danh sách thành viên -->
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary close" data-dismiss="modal">Đóng</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <h2 class="main-name-team">Danh sách chứng chỉ</h2>
+            <input type="text" id="searchCert" class="form-control mb-4" placeholder="Tìm chứng chỉ..." onkeyup="searchCertificate()">
+            <div class="row" id="certificateList"></div>
         </div>
     </div>
+
 
     <div class="footer">
         <div class="container">
