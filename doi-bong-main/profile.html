@@ -94,35 +94,36 @@
     </header>
 
     <div class="content">
-        <div class="container mt-5 profile-container">
-            <div class="row align-items-center">
-                <!-- Ảnh đại diện và thông tin cơ bản -->
-                <div class="col-md-4 text-center profile-left">
-                    <img src="Pic/avatar.jpg" alt="Ảnh đại diện" class="img-fluid rounded-circle profile-img">
-                    <h3 class="player-name">Nguyễn Văn A</h3>
-                    <p class="player-number">Số áo: 10</p>
-                    <p class="player-position">Tiền đạo</p>
-                    <p class="player-age">Tuổi: 25</p>
-                </div>
-    
-                <!-- Thông tin chi tiết -->
-                <div class="col-md-8 profile-right">
-                    <div class="info-box">
-                        <p><strong>User Name:</strong> ABC </p>
-                    </div>
+        <!-- Nội dung Trang Cá Nhân -->
+        <div class="container mt-5 mb-5 profile-container">
+            <div class="row">
+            <!-- Cột trái: Avatar và thông tin cơ bản -->
+            <div class="col-lg-4 mb-4 profile-left">
+                <img src="Pic/default-avatar.jpg" alt="Ảnh đại diện" class="img-fluid rounded-circle profile-img">
+                <h3 class="player-name">Tên Người Dùng</h3>
+                <p class="player-number">Số áo: -</p>
+                <p class="player-position">Vị trí: -</p>
+                <p class="player-age">Tuổi: -</p>
+            </div>
 
-                    <div class="info-box">
-                        <p><strong>Thành tích:</strong> Vua phá lưới mùa giải 2023, Cầu thủ xuất sắc nhất năm.</p>
-                    </div>
-                    
-                    <div class="info-box">
-                        <p><strong>SDT:</strong> Cat Club Never Sai</p>
-                    </div>
-
-                    <div class="info-box">
-                        <p><strong>Email:</strong> Cat Club Never Sai</p>
-                    </div>
+            <!-- Cột phải: Thông tin chi tiết -->
+            <div class="col-lg-8 profile-right">
+                <div class="info-box">
+                <p><strong>User Name:</strong> <span id="username">Đang tải...</span></p>
                 </div>
+
+                <div class="info-box">
+                <p><strong>Thành tích:</strong> <span id="achievement-content">Đang tải...</span></p>
+                </div>
+
+                <div class="info-box">
+                <p><strong>SDT:</strong> <span id="phone">Đang tải...</span></p>
+                </div>
+
+                <div class="info-box">
+                <p><strong>Email:</strong> <span id="email">Đang tải...</span></p>
+                </div>
+            </div>
             </div>
         </div>
     </div>
@@ -166,6 +167,7 @@
     <script src="Js/sidemenu.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/jwt-decode@3.1.2/build/jwt-decode.min.js"></script>
 
+    <script src="Js/header.js"></script>
     <script src="Js/profile.js"></script>
 </body>
 </html>

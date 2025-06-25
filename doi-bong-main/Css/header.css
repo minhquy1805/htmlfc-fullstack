@@ -97,13 +97,13 @@ header{
     box-shadow: -2px 0 5px rgba(0, 0, 0, 0.5);
     z-index: 1000;
     padding: 20px;
-  }
-  
-  .side-menu.open {
+}
+
+.side-menu.open {
     right: 0; /* Hiển thị menu khi có class "open" */
-  }
-  
-  .side-menu button {
+}
+
+.side-menu button {
     background: none;
     color: white;
     border: none;
@@ -112,26 +112,31 @@ header{
     top: 10px;
     right: 10px;
     cursor: pointer;
-  }
-  
-  .side-menu ul {
+}
+
+.side-menu ul {
     list-style: none;
     padding: 0;
     margin-top: 50px;
-  }
-  
-  .side-menu ul li {
+}
+
+.side-menu ul li {
     margin: 15px 0;
-  }
-  
-  .side-menu ul li a {
+}
+
+.side-menu ul li a {
     display: flex;
     justify-content: center;
     color: white;
     text-decoration: none !important;
     font-size: 18px;
-  }
-  
-  .side-menu ul li a:hover {
+}
+
+.side-menu ul li a:hover {
     text-decoration: underline;
-  }
+}
+
+/* nut xem them */
+.hidden {
+    display: none;
+}

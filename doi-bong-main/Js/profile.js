@@ -1,46 +1,16 @@
-
-// Lấy token từ localStorage
-const token = localStorage.getItem("token");
-
 document.addEventListener("DOMContentLoaded", function () {
+    const memberId = localStorage.getItem("MemberId");
+    const token = localStorage.getItem("accessToken");
 
-    // Nếu không có token, chuyển hướng về trang đăng nhập
-    if (!token) {
-        alert("Bạn cần đăng nhập để truy cập trang này!");
-        window.location.href = "login-signup.html"; // Đổi thành trang đăng nhập của bạn
-    } else {
-        // Giải mã token để lấy thông tin người dùng
-        try {
-            const decodedToken = jwt_decode(token);
-
-            // Kiểm tra token đã hết hạn hay chưa
-            const currentTime = Date.now() / 1000; // Thời gian hiện tại (giây)
-            if (decodedToken.exp < currentTime) {
-                alert("Phiên đăng nhập của bạn đã hết hạn!");
-                window.location.href = "login-signup.html"; // Đổi lại trang đăng nhập
-                return;
-            }
-
-            // Token hợp lệ, bạn có thể tiếp tục xử lý ở đây
-            console.log("Token hợp lệ, vẫn còn thời gian sử dụng");
-            // Tiến hành hiển thị thông tin hoặc thực hiện các tác vụ khác.
-
-        } catch (error) {
-            alert("Lỗi giải mã token!");
-            window.location.href = "login-signup.html";
-        }
+    if (!memberId || !token) {
+        console.error("❌ Thiếu MemberId hoặc accessToken trong localStorage.");
+        alert("Vui lòng đăng nhập lại.");
+        window.location.href = "login-signup.html";
+        return;
     }
-});
 
-// sua thong tin ca nhan
-
-const memberId = localStorage.getItem("MemberId");
-
-if (!memberId || !token) {
-    console.error("Thiếu MemberId hoặc token trong localStorage");
-} else {
-    // Fetch thông tin người dùng
-    fetch(`https://localhost:7068/api/v1/MemberApi/selectbyprimarykey?id=${memberId}`, {
+    // API lấy thông tin thành viên
+    fetch(`http://35.247.156.29:8080/api/v1/MemberApi/selectbyprimarykey?id=${memberId}`, {
         method: "GET",
         headers: {
             "Authorization": `Bearer ${token}`
@@ -51,19 +21,22 @@ if (!memberId || !token) {
             return response.json();
         })
         .then(data => {
-            // Avatar (đường dẫn đã được xử lý từ backend)
-            document.querySelector(".profile-img").src = data.avatar || "Pic/default-avatar.jpg";
+            // Avatar
+            const avatar = data.avatar || "Pic/default-avatar.jpg";
+            document.querySelector(".profile-img").src = avatar;
 
-            // Hiển thị thông tin bên trái
-            document.querySelector(".player-name").textContent = `${data.firstname} ${data.middlename} ${data.lastname}`;
+            // Tên, số áo, vị trí tạm thời để sau
+            const fullName = `${data.firstname || ""} ${data.middlename || ""} ${data.lastname || ""}`.trim();
+            document.querySelector(".player-name").textContent = fullName;
             document.querySelector(".player-number").textContent = `Số áo: ${data.numberPlayer || "-"}`;
-            document.querySelector(".player-position").textContent = "";
-            document.querySelector(".player-age").textContent = "";
+            document.querySelector(".player-position").textContent = "Đang cập nhật";
+            document.querySelector(".player-age").textContent = "Tuổi: Đang cập nhật";
 
-            // Thông tin bên phải (có chỗ chờ thành tích)
-            document.querySelector(".profile-right").innerHTML = `
+            // Phần thông tin bên phải
+            const profileRight = document.querySelector(".profile-right");
+            profileRight.innerHTML = `
                 <div class="info-box">
-                    <p><strong>User Name:</strong> ${data.firstname}${data.lastname}</p>
+                    <p><strong>User Name:</strong> ${data.username || ""}</p>
                 </div>
 
                 <div class="info-box" id="achievement-box">
@@ -71,39 +44,42 @@ if (!memberId || !token) {
                 </div>
 
                 <div class="info-box">
-                    <p><strong>SDT:</strong> ${data.phone}</p>
+                    <p><strong>SDT:</strong> ${data.phone || "Chưa có"}</p>
                 </div>
 
                 <div class="info-box">
-                    <p><strong>Email:</strong> ${data.email}</p>
+                    <p><strong>Email:</strong> ${data.email || "Chưa có"}</p>
                 </div>
             `;
 
-            // Fetch thành tích dựa vào type (chính là certificateId)
+            // Lấy thành tích nếu có
             const certificateId = data.type;
-            fetch(`https://localhost:7068/api/v1/CertificateTypeApi/selectbyprimarykey?id=${certificateId}`, {
-                method: "GET",
-                headers: {
-                    "Authorization": `Bearer ${token}`
-                }
-            })
-                .then(res => {
-                    if (!res.ok) throw new Error("Không thể lấy thành tích");
-                    return res.json();
+            if (certificateId) {
+                fetch(`http://35.247.156.29:8080/api/v1/CertificateTypeApi/selectbyprimarykey?id=${certificateId}`, {
+                    method: "GET",
+                    headers: {
+                        "Authorization": `Bearer ${token}`
+                    }
                 })
-                .then(cert => {
-                    const achievementText = `${cert.name || "Không rõ"} - ${cert.description || ""}`;
-                    document.getElementById("achievement-content").textContent = achievementText;
-                    document.querySelector(".player-position").textContent = cert.name || "";
-                })
-                .catch(err => {
-                    console.error("Lỗi khi lấy thành tích:", err);
-                    document.getElementById("achievement-content").textContent = "Không thể tải thành tích";
-                });
+                    .then(res => {
+                        if (!res.ok) throw new Error("Không thể lấy thành tích");
+                        return res.json();
+                    })
+                    .then(cert => {
+                        const achievementText = `${cert.name || "Không rõ"} - ${cert.description || ""}`;
+                        document.getElementById("achievement-content").textContent = achievementText;
+                        document.querySelector(".player-position").textContent = cert.name || "Chưa rõ";
+                    })
+                    .catch(err => {
+                        console.warn("⚠️ Không thể tải thành tích:", err);
+                        document.getElementById("achievement-content").textContent = "Không thể tải thành tích";
+                    });
+            } else {
+                document.getElementById("achievement-content").textContent = "Không có dữ liệu";
+            }
         })
-        .catch(error => {
-            console.error("Lỗi khi lấy thông tin người dùng:", error);
+        .catch(err => {
+            console.error("❌ Lỗi khi lấy thông tin người dùng:", err);
+            alert("Không thể lấy thông tin người dùng. Vui lòng thử lại.");
         });
-}
-
-
+});

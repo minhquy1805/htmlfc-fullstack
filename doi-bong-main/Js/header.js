@@ -1,44 +1,40 @@
 document.addEventListener("DOMContentLoaded", function () {
-    const accessToken = localStorage.getItem("accessToken");
-
     const loginLink = document.getElementById("login-link");
     const logoutLink = document.getElementById("logout-link");
     const accountLink = document.getElementById("account-link");
     const profileLink = document.getElementById("profile-link");
 
     let isLoggedIn = false;
+    const accessToken = localStorage.getItem("accessToken");
 
-    if (accessToken) {
+    if (accessToken && typeof jwt_decode === "function") {
         try {
-            const decodedToken = jwt_decode(accessToken);
+            const decoded = jwt_decode(accessToken);
             const now = Date.now() / 1000;
-            if (decodedToken.exp && decodedToken.exp > now) {
+
+            if (decoded.exp && decoded.exp > now) {
                 isLoggedIn = true;
 
-                const role = decodedToken.role;
-                const memberId = decodedToken.nameid;
-                const username = decodedToken.unique_name;
+                const role = decoded.role;
+                const memberId = decoded.nameid;
+                const username = decoded.unique_name;
 
                 if (memberId) localStorage.setItem("MemberId", memberId);
                 if (role) localStorage.setItem("role", role);
                 if (username) localStorage.setItem("username", username);
 
-                if (role === "admin") {
-                    console.log("Đăng nhập với quyền Admin.");
-                } else {
-                    console.log("Đăng nhập với quyền User.");
-                }
+                console.log(`✅ Đăng nhập thành công với quyền ${role.toUpperCase()}`);
             } else {
-                console.warn("Token đã hết hạn.");
-                localStorage.clear();
+                console.warn("⚠️ Token đã hết hạn.");
+                performLogout();
             }
-        } catch (e) {
-            console.error("Token không hợp lệ:", e);
-            localStorage.clear();
+        } catch (err) {
+            console.error("❌ Token không hợp lệ:", err);
+            performLogout();
         }
     }
 
-    // Cập nhật trạng thái menu
+    // Cập nhật giao diện login/logout
     if (isLoggedIn) {
         if (loginLink) loginLink.classList.add("hidden");
         if (logoutLink) logoutLink.classList.remove("hidden");
@@ -47,28 +43,47 @@ document.addEventListener("DOMContentLoaded", function () {
         if (logoutLink) logoutLink.classList.add("hidden");
     }
 
-    if (loginLink) {
-        loginLink.addEventListener("click", function (event) {
-            event.preventDefault();
-            window.location.href = "login-signup.html";
-        });
-    }
-
-    if (logoutLink) {
-        logoutLink.addEventListener("click", function () {
-            localStorage.clear();
-            location.reload();
-        });
-    }
-
-    // Cập nhật username trong menu
+    // Lấy username
     const username = localStorage.getItem("username");
+
+    // Cập nhật account-link (trên header top)
     if (accountLink) {
         accountLink.textContent = username ? username.toUpperCase() : "YOUR ACCOUNT";
         accountLink.href = username ? "profile.html" : "login-signup.html";
     }
+
+    // Cập nhật profile-link (menu bên trái)
     if (profileLink) {
         profileLink.textContent = username ? username.toUpperCase() : "TRANG CÁ NHÂN";
         profileLink.href = username ? "profile.html" : "login-signup.html";
     }
+
+    // Logout xử lý
+    if (logoutLink) {
+        logoutLink.addEventListener("click", function () {
+            performLogout();
+        });
+    }
+
+    // Nếu click login-link → về trang login
+    if (loginLink) {
+        loginLink.addEventListener("click", function () {
+            window.location.href = "login-signup.html";
+        });
+    }
+
+    // Hàm logout dùng chung
+    function performLogout() {
+        localStorage.removeItem("accessToken");
+        localStorage.removeItem("refreshToken");
+        localStorage.removeItem("MemberId");
+        localStorage.removeItem("role");
+        localStorage.removeItem("username");
+        window.location.href = "login-signup.html";
+    }
+
+    // Xuất hàm để có thể dùng ở nơi khác
+    window.authUtils = {
+        logout: performLogout
+    };
 });
