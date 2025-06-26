@@ -156,3 +156,88 @@ img {
 .news-card:hover img {
     transform: scale(1.02);
 }
+
+/* Responsive cho news.html - KHÔNG đổi màu */
+
+@media (max-width: 767.98px) {
+    .header-top-inner,
+    .header-secondary-inner,
+    .header-info-block {
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        gap: 8px;
+    }
+    .header-info-logo {
+        margin-bottom: 12px;
+        text-align: left;
+    }
+    .header-info-logo img {
+        width: 90px;
+        height: auto;
+    }
+    .header-info-bal {
+        flex-direction: column;
+        gap: 4px;
+        padding-left: 0;
+        margin-bottom: 8px;
+    }
+    .header-info-bal li {
+        margin-bottom: 4px;
+    }
+    .side-menu {
+        width: 80vw;
+        max-width: 320px;
+        right: 0;
+    }
+    .dropdown-menu {
+        position: static !important;
+        float: none;
+    }
+    .nav-account {
+        flex-direction: column;
+        gap: 4px;
+        align-items: flex-start;
+    }
+    .main-text-news {
+        font-size: 1.2rem;
+        text-align: center;
+    }
+    .content .container {
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+    .search-bar {
+        margin-bottom: 16px;
+    }
+    .form-control {
+        font-size: 1rem;
+        padding: 10px 8px;
+    }
+    .footer .footer-inner .row > div {
+        text-align: center;
+        margin-bottom: 12px;
+    }
+    .footer-nav {
+        justify-content: center !important;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 991.98px) {
+    .header-info-logo img {
+        width: 110px;
+    }
+    .main-text-news {
+        font-size: 1.4rem;
+    }
+    .content .container {
+        padding-left: 16px;
+        padding-right: 16px;
+    }
+    .footer .footer-inner .row > div {
+        text-align: center;
+        margin-bottom: 12px;
+    }
+    .footer-nav {
+        justify-content: center !important;
+    }
+}

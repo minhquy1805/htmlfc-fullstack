@@ -69,3 +69,67 @@ body{
     display: flex;
     gap: 50px;
 }
+
+/* Responsive */
+
+@media (max-width: 991.98px) {
+    .content .container {
+        padding-left: 12px;
+        padding-right: 12px;
+    }
+    .calendar-header h2 {
+        font-size: 1.3rem;
+        text-align: center;
+    }
+    .calendar-header .btn {
+        margin: 4px 2px;
+        font-size: 1rem;
+        padding: 6px 12px;
+    }
+    .footer .footer-inner .row > div {
+        text-align: center;
+        margin-bottom: 12px;
+    }
+    .footer-nav {
+        justify-content: center !important;
+    }
+}
+
+@media (max-width: 767.98px) {
+    .content .container {
+        padding-left: 6px;
+        padding-right: 6px;
+    }
+    .calendar-header h2 {
+        font-size: 1.1rem;
+    }
+    .calendar-body .day-name,
+    .calendar-days .col {
+        font-size: 0.95rem;
+        padding: 4px 0;
+    }
+    .match-info h5 {
+        font-size: 1rem;
+    }
+    .match-info p {
+        font-size: 0.97rem;
+    }
+}
+
+@media (max-width: 575.98px) {
+    .calendar-header h2 {
+        font-size: 1rem;
+    }
+    .calendar-header .btn {
+        font-size: 0.95rem;
+        padding: 5px 8px;
+    }
+    .calendar-body .day-name,
+    .calendar-days .col {
+        font-size: 0.9rem;
+        padding: 2px 0;
+    }
+    .calendar {
+        padding: 0 2px;
+    }
+}

@@ -71,3 +71,54 @@ body{
     border: 2px solid #ff69b4; /* Viền hồng nổi bật */
   }
   
+  /* Responsive */
+
+@media (max-width: 991.98px) {
+    .content .container {
+        padding-left: 12px;
+        padding-right: 12px;
+    }
+    .contact-info-container,
+    .map-container {
+        margin-bottom: 24px;
+    }
+    .footer .footer-inner .row > div {
+        text-align: center;
+        margin-bottom: 12px;
+    }
+    .footer-nav {
+        justify-content: center !important;
+    }
+}
+
+@media (max-width: 767.98px) {
+    .content .container {
+        padding-left: 6px;
+        padding-right: 6px;
+    }
+    .contact-info-title,
+    .map-title {
+        font-size: 1.1rem;
+        text-align: center;
+    }
+    .contact-info-list {
+        padding-left: 16px;
+        font-size: 1rem;
+    }
+    .map-container iframe {
+        height: 260px;
+    }
+}
+
+@media (max-width: 575.98px) {
+    .contact-info-title,
+    .map-title {
+        font-size: 1rem;
+    }
+    .contact-info-list {
+        font-size: 0.97rem;
+    }
+    .map-container iframe {
+        height: 180px;
+    }
+}

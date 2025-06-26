@@ -698,3 +698,92 @@ body{
     border-color: transparent;
     transition: 0.5s ease-in-out;
 }
+
+/* Responsive */
+
+/* Mobile: 0-575px */
+@media (max-width: 575.98px) {
+    .header-info-block{
+        display: contents;
+    }
+
+    .header-info-block .header-info-logo img{
+        width: 150px !important;
+    }
+
+    .main-wrapper img {
+        width: 100%;
+        height: auto;
+    }
+    .main-content .content,
+    .main-content #sidebar {
+        width: 100%;
+        max-width: 100%;
+        padding: 0 8px;
+    }
+    .main-content .row {
+        flex-direction: column;
+    }
+    .card.card-clean,
+    .main-contact-info,
+    .widget-sidebar,
+    .widget-game-result,
+    .widget-social {
+        margin-bottom: 16px;
+    }
+    .main-contact-info-inner {
+        padding: 12px;
+    }
+    .footer .footer-inner .row > div {
+        text-align: center;
+        margin-bottom: 12px;
+    }
+    .footer-nav {
+        justify-content: center !important;
+    }
+}
+
+/* Tablet: 576px - 991px */
+@media (min-width: 576px) and (max-width: 991.98px) {
+    .main-content .content,
+    .main-content #sidebar {
+        width: 100%;
+        max-width: 100%;
+        padding: 0 16px;
+    }
+    .main-content .row {
+        flex-direction: column;
+    }
+    .footer .footer-inner .row > div {
+        text-align: center;
+        margin-bottom: 12px;
+    }
+    .footer-nav {
+        justify-content: center !important;
+    }
+}
+
+/* Desktop nhỏ: 992px - 1199px */
+@media (min-width: 992px) and (max-width: 1199.98px) {
+    .main-content .content {
+        width: 65%;
+    }
+    .main-content #sidebar {
+        width: 35%;
+    }
+}
+
+/* Ẩn bớt text dài trên mobile */
+@media (max-width: 575.98px) {
+    .card-header h4,
+    .main-contact-info-inner h1 {
+        font-size: 1.1rem;
+    }
+    .posts-title a {
+        font-size: 1rem;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: block;
+    }
+}

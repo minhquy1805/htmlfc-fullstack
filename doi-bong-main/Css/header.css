@@ -140,3 +140,13 @@ header{
 .hidden {
     display: none;
 }
+
+@media (max-width: 768px) {
+    .header-info-block{
+        display: contents;
+    }
+
+    .header-info-block .header-info-logo img{
+        width: 150px !important;
+    }
+}

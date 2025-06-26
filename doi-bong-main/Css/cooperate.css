@@ -54,3 +54,59 @@ h2 {
     border-radius: 12px;
     border: 2px solid #d63384;
 }
+
+/* Responsive */
+
+@media (max-width: 991.98px) {
+    .content .container {
+        padding-left: 12px;
+        padding-right: 12px;
+    }
+    .service-card {
+        margin-bottom: 20px;
+    }
+    .contact-form {
+        padding: 16px 8px;
+    }
+    .footer .footer-inner .row > div {
+        text-align: center;
+        margin-bottom: 12px;
+    }
+    .footer-nav {
+        justify-content: center !important;
+    }
+}
+
+@media (max-width: 767.98px) {
+    .content .container {
+        padding-left: 6px;
+        padding-right: 6px;
+    }
+    .service-card h4 {
+        font-size: 1.1rem;
+    }
+    .contact-form {
+        padding: 12px 4px;
+    }
+    .btn-custom, .btn-block {
+        width: 100%;
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 575.98px) {
+    .service-card h4 {
+        font-size: 1rem;
+    }
+    .service-card p {
+        font-size: 0.95rem;
+    }
+    .contact-form {
+        padding: 8px 2px;
+    }
+    .form-group label,
+    .form-group input,
+    .form-group textarea {
+        font-size: 0.98rem;
+    }
+}

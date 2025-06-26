@@ -52,8 +52,65 @@ body{
 }
 
 
+/* Responsive */
+
 @media (max-width: 767px) {
     .certificate-card {
         margin-bottom: 16px;
+    }
+}
+
+
+@media (max-width: 991.98px) {
+    .content .container {
+        padding-left: 12px;
+        padding-right: 12px;
+    }
+    .main-name-team {
+        font-size: 1.3rem;
+        text-align: center;
+    }
+    #certificateList .col-md-4 {
+        width: 100%;
+        max-width: 100%;
+        margin-bottom: 16px;
+    }
+    .certificate-card {
+        margin-bottom: 16px;
+    }
+}
+
+@media (max-width: 767.98px) {
+    .content .container {
+        padding-left: 6px;
+        padding-right: 6px;
+    }
+    .main-name-team {
+        font-size: 1.1rem;
+    }
+    .certificate-card .card-body {
+        padding: 1rem;
+    }
+    .footer .footer-inner .row > div {
+        text-align: center;
+        margin-bottom: 12px;
+    }
+    .footer-nav {
+        justify-content: center !important;
+    }
+}
+
+@media (max-width: 575.98px) {
+    .main-name-team {
+        font-size: 1rem;
+    }
+    .certificate-card .card-title {
+        font-size: 1rem;
+    }
+    .certificate-card .card-text {
+        font-size: 0.95rem;
+    }
+    .certificate-card .card-body {
+        padding: 0.75rem;
     }
 }

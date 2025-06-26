@@ -47,3 +47,47 @@ body{
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
+
+/* Responsive */
+
+@media (max-width: 991.98px) {
+    .profile-container .row {
+        flex-direction: column;
+    }
+    .profile-left,
+    .profile-right {
+        width: 100% !important;
+        max-width: 100%;
+    }
+    .profile-left {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-bottom: 24px;
+    }
+    .profile-img {
+        width: 120px;
+        height: 120px;
+        object-fit: cover;
+        margin-bottom: 12px;
+    }
+    .player-name {
+        font-size: 1.2rem;
+        text-align: center;
+    }
+}
+
+@media (max-width: 575.98px) {
+    .profile-container {
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+    .info-box p {
+        font-size: 1rem;
+        word-break: break-word;
+    }
+    .profile-img {
+        width: 90px;
+        height: 90px;
+    }
+}
